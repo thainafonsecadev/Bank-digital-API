@@ -16,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
                 .body(new ErrorResponse("Not Found", ex.getMessage()));
     }
 
+
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponse> handleBadRequest(IllegalArgumentException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)

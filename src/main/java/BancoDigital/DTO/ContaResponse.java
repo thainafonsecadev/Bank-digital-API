@@ -18,8 +18,9 @@ import lombok.Getter;
             this.status = conta.getStatus().name();
             this.nomeCliente = conta.getCliente().getNomeCompleto();
             this.cpfCnpj = conta.getCliente().getCpfCnpj();
-    }
+        }
 
 }
+
 
 

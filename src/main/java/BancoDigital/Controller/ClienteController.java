@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -30,23 +29,17 @@ import java.util.UUID;
         return "Controller funcionando!";
     }
 
-    @PostMapping
+    @PostMapping("/clientes")
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente criarCliente(@Valid @RequestBody ClienteRequest clienteRequest) {
-
-        Optional<Cliente> existente = clienteRepository.findByCpfCnpj(clienteRequest.getCpfCnpj());
-        if (existente.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "CPF/CNPJ já cadastrado");
-        }
+    public Cliente criarCliente(@RequestBody @Valid ClienteRequest clienteRequest) {
 
         Cliente cliente = new Cliente();
         cliente.setNomeCompleto(clienteRequest.getNomeCompleto());
         cliente.setCpfCnpj(clienteRequest.getCpfCnpj());
-        cliente.setEmail(clienteRequest.getEmail());
-        cliente.setDataNascimento(clienteRequest.getDataNascimento());
+        cliente.setEndereco(clienteRequest.getEndereco());
 
-        Endereco endereco = viaCepService.buscarEnderecoPorCep(clienteRequest.getEndereco().getCep());
-        cliente.setEndereco(endereco);
+        //  Se desejar gera UUID manualmente
+        cliente.setId(UUID.randomUUID());
 
         return clienteRepository.save(cliente);
     }

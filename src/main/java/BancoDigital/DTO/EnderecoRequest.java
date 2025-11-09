@@ -6,7 +6,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class EnderecoRequest {
+
+    public class EnderecoRequest {
 
     @NotBlank(message = "CEP é obrigatório")
     private String cep;

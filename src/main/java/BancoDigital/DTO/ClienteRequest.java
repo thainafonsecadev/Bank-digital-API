@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ClienteRequest {
+    public class ClienteRequest {
 
     @NotBlank(message = "Nome completo é obrigatório")
     private String nomeCompleto;
@@ -26,5 +26,6 @@ public class ClienteRequest {
 
     @Valid
     @NotNull(message = "Endereço é obrigatório")
-    private EnderecoRequest endereco;
+    private String endereco;
+
 }
