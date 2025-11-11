@@ -1,4 +1,4 @@
-Banco Digital API / Projeto de Estudo
+Banco Digital API — Projeto de Estudo
 
 Este é um projeto de estudo onde desenvolvi uma API REST em Java com Spring Boot simulando um pequeno banco digital.
 
@@ -16,11 +16,9 @@ remover contas
 
 listar todas as contas
 
-projeto me ajudou a entender melhor como funciona uma API real, organizar camadas do backend, trabalhar com banco H2,
-consumir serviços externos (ViaCEP) e ainda modernizar o ambiente usando Docker.
+O projeto me ajudou a entender melhor como funciona uma API real, organizar camadas do backend, trabalhar com banco H2, consumir serviços externos (ViaCEP) e modernizar o ambiente usando Docker.
 
-
-O que eu pratiquei com este projeto
+O que eu aprendi / pratiquei
 
 Criar endpoints REST usando Spring Boot
 
@@ -36,7 +34,7 @@ Organizar a API em camadas (Controller, Service, Repository, DTO, Model)
 
 Subir o projeto no Docker e rodar a API sem depender da configuração da máquina
 
-Tecnologias Usadas
+Tecnologias
 
 Java 21
 
@@ -70,7 +68,7 @@ Tipo de conta deve ser PF ou PJ
 
 Verificação de conta temporária no serviço de abertura
 
- Regras de Negócio
+Regras de negócio
 
 Cliente deve possuir CPF/CNPJ único
 
@@ -86,72 +84,79 @@ status inicial é TEMPORARIO
 
 um cliente não pode ter mais de uma conta TEMPORARIO
 
- Sobre o Docker neste projeto
+Docker no projeto
 
-O Docker permite:
+Empacota a API como uma imagem executável
 
-Empacotar a API como uma imagem executável
+Roda em qualquer ambiente sem configurar Java
 
-Rodar a aplicação em qualquer ambiente sem configurar Java
+Facilita deploy em nuvem (ex.: EC2)
 
-Automatizar deploy em ambientes de nuvem (como EC2)
+Garante reprodutibilidade do ambiente
 
-Garantir reprodutibilidade do ambiente
+Ajuda em CI/CD
 
-Facilitar CI/CD
+A API funciona com H2 mesmo dentro do Docker.
 
-A API funciona normalmente com o banco H2 mesmo dentro do Docker.
-
-Instruções de como iniciar o projeto
-Rodar localmente
+Como executar local
 mvn clean install
 mvn spring-boot:run
 
- Acessos
+Acessos
 
-API → http://localhost:8080/
+API: http://localhost:8080/
 
-H2 Console → http://localhost:8080/h2-console
+H2 Console: http://localhost:8080/h2-console
 
- Persistência banco H2
+Persistência H2
 
-O banco está configurado no modo file e os dados são salvos na pasta:
+Arquivo salvo em:
 
-/data/banco-digital-db.mv.db
+./data/banco-digital-db.mv.db
 
-Configuração application.yml:
+
+application.yml:
+
 spring:
   datasource:
     url: jdbc:h2:file:./data/banco-digital-db;DB_CLOSE_DELAY=-1
     driver-class-name: org.h2.Driver
 
 
-OBS: DB_CLOSE_DELAY = -1 mantém o banco vivo durante toda a execução.
+Observação: DB_CLOSE_DELAY=-1 mantém o banco ativo durante a execução para facilitar testes.
 
-ENDPOINTS
-
- 1. Criar cliente
+Endpoints
+1) Criar cliente
 
 POST /clientes
 
-Body usado:
+Body
 {
   "nomeCompleto": "Thainá Fonseca",
+  
   "cpfCnpj": "1234567809",
+  
   "email": "seuemail@aqui.com",
+  
   "dataNascimento": "2000-01-01",
+  
   "endereco": {
     "cep": "01001000"
   }
 }
 
- Response 201 (sucesso)
+201 Created
 {
   "id": "b4c0d95e-5cb2-489a-8857-13ae5cb2b65c",
+  
   "nomeCompleto": "Thainá Fonseca",
+  
   "cpfCnpj": "12345678900",
+  
   "email": "seuemail@aqui.com",
+  
   "dataNascimento": "2000-01-01",
+  
   "endereco": {
     "cep": "08250-530",
     "logradouro": "Itaquera",
@@ -161,93 +166,116 @@ Body usado:
   }
 }
 
- 400 — CPF já cadastrado
+400 Bad Request (CPF/CNPJ já cadastrado)
 {
   "error": "Bad Request",
+  
   "message": "CPF/CNPJ já cadastrado"
 }
 
- 400 — CEP inválido
+400 Bad Request (CEP inválido)
 {
   "error": "Not Found",
+  
   "message": "CEP inválido"
 }
 
- 2. Abrir conta
+2) Abrir conta
 
 POST /contas
 
- Sucesso
+201 Created
 {
   "idConta": "9a66386f-1d73-4fa9-9e07-902c67a6c1d2",
+  
   "tipoConta": "PF",
+  
   "status": "TEMPORARIO",
+  
   "saldo": 0.0,
+  
   "dataCriacao": "2025-10-28T23:10:21.123Z",
+  
   "clienteId": "b4c0d95e-5cb2-489a-8857-13ae5cb2b65c"
 }
 
- Cliente não encontrado
+404 Not Found (cliente não existe)
 {
   "error": "Not Found",
+  
   "message": "Cliente não encontrado"
 }
 
- Conta temporária já existente
+400 Bad Request (já possui conta temporária)
 {
   "error": "Bad Request",
+  
   "message": "Cliente já possui conta temporária"
 }
 
- Tipo de conta inválido
+400 Bad Request (tipo inválido)
 {
   "error": "Bad Request",
+  
   "message": "Tipo de conta inválido. Use PF ou PJ"
 }
 
- 3. Consultar conta
+3) Consultar conta
 
 GET /contas/{idConta}
 
- Sucesso
+200 OK
 {
   "idConta": "9a66386f-1d73-4fa9-9e07-902c67a6c1d2",
+  
   "tipoConta": "PF",
+  
   "status": "TEMPORARIO",
+  
   "saldo": 0.0,
+  
   "dataCriacao": "2025-10-28T23:10:21.123Z",
+  
   "dataAtualizacao": null,
+  
   "clienteId": "b4c0d95e-5cb2-489a-8857-13ae5cb2b65c"
 }
 
- Conta não encontrada
+404 Not Found
 {
   "error": "Not Found",
   "message": "Conta não encontrada"
 }
 
- 4. Atualizar status da conta
+4) Atualizar status da conta
 
 PUT /contas/{idConta}/status?status=APROVADA
 
- Sucesso
+200 OK
 {
   "idConta": "9a66386f-1d73-4fa9-9e07-902c67a6c1d2",
+  
   "tipoConta": "PF",
+  
   "status": "APROVADA",
+  
   "saldo": 0.0,
+  
   "dataCriacao": "2025-10-28T23:10:21.123Z",
+  
   "dataAtualizacao": "2025-10-28T23:20:05.987Z",
+  
   "clienteId": "b4c0d95e-5cb2-489a-8857-13ae5cb2b65c"
 }
 
- Status inválido
+400 Bad Request (status inválido)
 {
   "error": "Bad Request",
+  
   "message": "Status inválido. Use APROVADA, REPROVADA ou TEMPORARIO"
 }
 
- 5. Remover conta
+5) Remover conta
 
 DELETE /contas/{idConta}
 
@@ -255,17 +283,17 @@ DELETE /contas/{idConta}
 
 (sem body)
 
- Conta não encontrada
+404 Not Found
 {
   "error": "Not Found",
   "message": "Conta não encontrada"
 }
 
- 6. Listar contas
+6) Listar contas
 
 GET /contas
 
- Sucesso
+200 OK
 [
   {
     "idConta": "9a66386f-1d73-4fa9-9e07-902c67a6c1d2",
@@ -283,13 +311,13 @@ GET /contas
   }
 ]
 
- BÔNUS / Próximos passos
+Bônus / Próximos passos
 
 Criar testes unitários (JUnit + Mockito)
 
 Automatizar deploy com CI/CD
 
-Subir a API na EC2
+Subir a API em EC2
 
 Migrar para Postgres/RDS
 
