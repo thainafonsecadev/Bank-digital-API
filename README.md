@@ -1,3 +1,5 @@
+Banco Digital API / Projeto de Estudo
+
 Este é um projeto de estudo onde desenvolvi uma API REST em Java com Spring Boot simulando um pequeno banco digital.
 
 Aqui é possível:
@@ -14,11 +16,11 @@ remover contas
 
 listar todas as contas
 
-O projeto me ajudou a entender melhor como funciona uma API real, organizar camadas do backend, trabalhar com banco H2, consumir serviços externos (ViaCEP) e ainda modernizar o ambiente usando Docker.
+projeto me ajudou a entender melhor como funciona uma API real, organizar camadas do backend, trabalhar com banco H2,
+consumir serviços externos (ViaCEP) e ainda modernizar o ambiente usando Docker.
 
----- 
 
-O que eu aprendi / pratiquei com este projeto
+O que eu pratiquei com este projeto
 
 Criar endpoints REST usando Spring Boot
 
@@ -34,34 +36,26 @@ Organizar a API em camadas (Controller, Service, Repository, DTO, Model)
 
 Subir o projeto no Docker e rodar a API sem depender da configuração da máquina
 
+Tecnologias Usadas
 
+Java 21
 
+Spring Boot 3
 
- ---- 
+Spring Web
 
- Tecnologias Usadas 
+Spring Data JPA
 
-  Java 21
-  
-  Spring Boot 3
-  
-  Spring Web
-  
-  Spring Data JPA
-  
-  H2 Database (file mode)
-  
-  Spring Validation
-  
-  Lombok
-  
-  Docker
-  
-  Integração ViaCEP
+H2 Database (file mode)
 
-  -----
+Spring Validation
 
-  
+Lombok
+
+Docker
+
+Integração ViaCEP
+
 Validações
 
 CPF/CNPJ: obrigatório e único
@@ -76,9 +70,7 @@ Tipo de conta deve ser PF ou PJ
 
 Verificação de conta temporária no serviço de abertura
 
-------
-
-Regras de Negócio
+ Regras de Negócio
 
 Cliente deve possuir CPF/CNPJ único
 
@@ -94,9 +86,7 @@ status inicial é TEMPORARIO
 
 um cliente não pode ter mais de uma conta TEMPORARIO
 
------ 
-
-Sobre o Docker neste projeto
+ Sobre o Docker neste projeto
 
 O Docker permite:
 
@@ -112,49 +102,39 @@ Facilitar CI/CD
 
 A API funciona normalmente com o banco H2 mesmo dentro do Docker.
 
-----
+Instruções de como iniciar o projeto
+Rodar localmente
+mvn clean install
+mvn spring-boot:run
 
-  Instruções de como iniciar o projeto
+ Acessos
 
-  Rodar localmente ( sua IDE de preferência )
+API → http://localhost:8080/
 
-  -> 1. mvn clean install
-  -> 2. executar/run - mvn spring-boot:run
+H2 Console → http://localhost:8080/h2-console
 
-  -----
-  Acessos 
+ Persistência banco H2
 
-  API -> http://localhost:8080/
-  H2 console http://localhost:8080/h2-console
+O banco está configurado no modo file e os dados são salvos na pasta:
 
-  Persistência banco H2
+/data/banco-digital-db.mv.db
 
-  O banco esta configurado no modo file, todos os dados são salvos na pasta 
-  
-   ex: /data/banco-digital-db.mv.db
-
-   ---
-
-  Configuração Aplicattion YML:
-  
-  spring:
+Configuração application.yml:
+spring:
   datasource:
     url: jdbc:h2:file:./data/banco-digital-db;DB_CLOSE_DELAY=-1
     driver-class-name: org.h2.Driver
 
-  OBS: DB_CLOSE_DELAY =  -1 mantém o banco ativo durante toda a execução.
 
- ------
+OBS: DB_CLOSE_DELAY = -1 mantém o banco vivo durante toda a execução.
 
- ENDPOINTS 
+ENDPOINTS
 
-1. Criar cliente 
+ 1. Criar cliente
 
-POST/CLIENTES
+POST /clientes
 
-body utilizado :
-
-
+Body usado:
 {
   "nomeCompleto": "Thainá Fonseca",
   "cpfCnpj": "1234567809",
@@ -165,9 +145,8 @@ body utilizado :
   }
 }
 
-  RESPONSE / RETORNO 201 CREATED / SUCESSO / OK
-
-  {
+ Response 201 (sucesso)
+{
   "id": "b4c0d95e-5cb2-489a-8857-13ae5cb2b65c",
   "nomeCompleto": "Thainá Fonseca",
   "cpfCnpj": "12345678900",
@@ -175,36 +154,30 @@ body utilizado :
   "dataNascimento": "2000-01-01",
   "endereco": {
     "cep": "08250-530",
-    "logradouro": "iTAQUERA",
-    "bairro": "jb",
+    "logradouro": "Itaquera",
+    "bairro": "JB",
     "localidade": "São Paulo",
     "uf": "SP"
   }
 }
 
-RESPONSE / ERRO / BAD REQUEST 400
-
+ 400 — CPF já cadastrado
 {
   "error": "Bad Request",
   "message": "CPF/CNPJ já cadastrado"
 }
 
-OUTRO ERRO CEP / 400 
-
+ 400 — CEP inválido
 {
   "error": "Not Found",
   "message": "CEP inválido"
 }
 
------
+ 2. Abrir conta
 
+POST /contas
 
-2. Abrir conta 
-
-POST/CONTA
-
-RESPONSE OK SUCESSO /Criação opção conta temporária 
-
+ Sucesso
 {
   "idConta": "9a66386f-1d73-4fa9-9e07-902c67a6c1d2",
   "tipoConta": "PF",
@@ -214,35 +187,29 @@ RESPONSE OK SUCESSO /Criação opção conta temporária
   "clienteId": "b4c0d95e-5cb2-489a-8857-13ae5cb2b65c"
 }
 
-RESPONSE retorno do erro, quando o cliente não é encontrado 404
-
+ Cliente não encontrado
 {
   "error": "Not Found",
   "message": "Cliente não encontrado"
 }
 
-RESPONSE retorno do erro, o cliente esta com o status que possui uma conta temporária
-
+ Conta temporária já existente
 {
   "error": "Bad Request",
   "message": "Cliente já possui conta temporária"
 }
 
-RESPONSE retorno do erro, o tipo da conta é invalida 
-
+ Tipo de conta inválido
 {
   "error": "Bad Request",
   "message": "Tipo de conta inválido. Use PF ou PJ"
 }
 
-----
+ 3. Consultar conta
 
-3. Consultar conta
+GET /contas/{idConta}
 
-GET / CONTAS - idConta 
-
-RESPONSE OK SUCESSO 
-
+ Sucesso
 {
   "idConta": "9a66386f-1d73-4fa9-9e07-902c67a6c1d2",
   "tipoConta": "PF",
@@ -253,22 +220,17 @@ RESPONSE OK SUCESSO
   "clienteId": "b4c0d95e-5cb2-489a-8857-13ae5cb2b65c"
 }
 
-RESPONSE ERRO 404 
-
+ Conta não encontrada
 {
   "error": "Not Found",
   "message": "Conta não encontrada"
 }
 
----
+ 4. Atualizar status da conta
 
-4. Atualizar status da conta 
+PUT /contas/{idConta}/status?status=APROVADA
 
-PUT / contas idConta - > status?status=APROVADA ( aqui vai inserir tudo junto ex: {idConta}/status?status=APROVADA )
-
-RESPONSE SUCESSO OK 
-
-
+ Sucesso
 {
   "idConta": "9a66386f-1d73-4fa9-9e07-902c67a6c1d2",
   "tipoConta": "PF",
@@ -279,36 +241,33 @@ RESPONSE SUCESSO OK
   "clienteId": "b4c0d95e-5cb2-489a-8857-13ae5cb2b65c"
 }
 
-
-RESPONSE ERRO COM STATUS INVALIDO 
-
+ Status inválido
 {
   "error": "Bad Request",
   "message": "Status inválido. Use APROVADA, REPROVADA ou TEMPORARIO"
 }
 
-5. Remover conta 
+ 5. Remover conta
 
-DELETE - CONTAS idConta
+DELETE /contas/{idConta}
 
-RESPONSE SUCESSO OK 204 - NO COTENTT
+204 No Content
 
-com retorno vazio 
+(sem body)
 
+ Conta não encontrada
 {
   "error": "Not Found",
   "message": "Conta não encontrada"
 }
 
-----
+ 6. Listar contas
 
-6. Listar contas 
+GET /contas
 
-GET / CONTAS 
-
-RESPONSE SUCESSO OK
-
-{
+ Sucesso
+[
+  {
     "idConta": "9a66386f-1d73-4fa9-9e07-902c67a6c1d2",
     "tipoConta": "PF",
     "status": "TEMPORARIO",
@@ -322,22 +281,16 @@ RESPONSE SUCESSO OK
     "saldo": 0.0,
     "clienteId": "a993728f-a12b-4fae-a587-3c1df7435d19"
   }
+]
 
-
----
-
-BONÛS 
-
-Projeto pronto para :
- 
-Possíveis Próximos Passos
+ BÔNUS / Próximos passos
 
 Criar testes unitários (JUnit + Mockito)
 
 Automatizar deploy com CI/CD
 
-Subir a API em uma EC2 na AWS
+Subir a API na EC2
 
-Migrar o banco para PostgreSQL ou RDS
+Migrar para Postgres/RDS
 
-Criar documentação Swagger
+Criar documentação Swagger
