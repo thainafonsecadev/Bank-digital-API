@@ -1,12 +1,9 @@
-# Ignorar pasta de build do Maven
+
 /target
 
-# Ignorar configurações do IntelliJ
 /.idea
 *.iml
 
-# Logs
 *.log
 
-# Arquivos temporários do sistema
 .DS_Storegit

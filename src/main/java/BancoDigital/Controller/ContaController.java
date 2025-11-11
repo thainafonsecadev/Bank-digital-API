@@ -15,7 +15,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/contas")
 
-public class ContaController {
+    public class ContaController {
 
     private final ContaService contaService;
 
@@ -72,6 +72,7 @@ public class ContaController {
                     .body(new ErrorResponse("Bad Request", e.getMessage()));
         }
     }
+
 
     @GetMapping
     public ResponseEntity<List<Conta>> listarContas() {

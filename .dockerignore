@@ -1,26 +1,16 @@
-# Ignorar pastas e arquivos que não precisam ir para a imagem Docker
 
 # Diretorios de build
 target/
 out/
 build/
 
-# Controle de versao e IDEs
-.git
-.gitignore
-.idea/
-.vscode/
-*.iml
-
 # Logs e temporarios
 *.log
 *.tmp
 *.swp
 
-# Node (se algum dia o projeto tiver front)
 node_modules/
 
-# Arquivos de configuracao locais
 Dockerfile
 docker-compose.yml
 README.md
