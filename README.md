@@ -135,7 +135,7 @@ ENDPOINTS
 POST /clientes
 
 Body utilizado:
-
+```
 {
   "nomeCompleto": "",
   "cpfCnpj": "",
@@ -303,7 +303,7 @@ Response 200 OK
     "clienteId": "a993728f-a12b-4fae-a587-3c1df7435d19"
   }
 ]
-
+```
 BÔNUS / Próximos Passos
 
 Criar testes unitários (JUnit + Mockito)
