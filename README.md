@@ -300,8 +300,9 @@ GET /contas
 
 Response 200 OK
 
-[```
-  {
+[
+  ```
+  { 
     "idConta": "9a66386f-1d73-4fa9-9e07-902c67a6c1d2",
     "tipoConta": "PF",
     "status": "TEMPORARIO",
@@ -315,9 +316,8 @@ Response 200 OK
     "saldo": 0.0,
     "clienteId": "a993728f-a12b-4fae-a587-3c1df7435d19"
   }
-]
-```
-```
+  ```
+ ]
 
 Projeto esta desenvolvido em um formato que posso futuramente explorar mais alguns serviços voltados para o Back end
 
