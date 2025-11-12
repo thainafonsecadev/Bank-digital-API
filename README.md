@@ -148,8 +148,10 @@ json
   "email": "manoelbg@hotmail.com",
   
   "dataNascimento": "04/01/1999",
+
   
   "endereco": {
+  
     "cep": "08295-530",
     
     "logradouro": "Rua Félix Capella",
