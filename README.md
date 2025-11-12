@@ -140,15 +140,24 @@ json
 json
 {
   "id": "5cd272df-afb5-4128-90bd-579b94467c0f",
+  
   "nomeCompleto": "Manoel Fonseca",
+  
   "cpfCnpj": "312.363.281-23",
+  
   "email": "manoelbg@hotmail.com",
+  
   "dataNascimento": "04/01/1999",
+  
   "endereco": {
     "cep": "08295-530",
+    
     "logradouro": "Rua Félix Capella",
+    
     "bairro": "Conjunto Residencial José Bonifácio",
+    
     "localidade": "São Paulo",
+    
     "uf": "SP"
   }
 }
