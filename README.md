@@ -359,8 +359,6 @@ json
   
 }
 
-
-
 ---
 
 ## 6. Listar Contas - GET /contas
@@ -398,4 +396,4 @@ json
 - Subir a API em uma instância EC2 na AWS  
 - Migrar o banco para PostgreSQL / RDS  
 - Criar documentação com Swagger  
-"""
+
