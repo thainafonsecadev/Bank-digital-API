@@ -125,17 +125,18 @@ OBS: DB_CLOSE_DELAY=-1 mantém o banco ativo durante toda a execução.
 
 json
 {
-  "nomeCompleto": "",
+
+  "nomeCompleto": "sSEU NOME AQUI",
   
-  "cpfCnpj": "",
+  "cpfCnpj": "010203040506",
   
-  "email": "",
+  "email": "seuemail@aqui.com",
   
-  "dataNascimento": "",
+  "dataNascimento":  "01.11.1998",
   
-  "endereco": {
+  "endereco":  { RUA FX
   
-    "cep": ""
+    "cep": "08250-521"
   }
   
 }
