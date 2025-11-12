@@ -126,19 +126,27 @@ OBS: DB_CLOSE_DELAY=-1 mantém o banco ativo durante toda a execução.
 json
 {
   "nomeCompleto": "",
+  
   "cpfCnpj": "",
+  
   "email": "",
+  
   "dataNascimento": "",
+  
   "endereco": {
+  
     "cep": ""
   }
+  
 }
 
 
 ### Response 201 Created SUCESSO
 
 json
+
 {
+
   "id": "5cd272df-afb5-4128-90bd-579b94467c0f",
   
   "nomeCompleto": "Manoel Fonseca",
@@ -168,9 +176,12 @@ json
 ### Response ERRO / 400 BAD REQUEST
 
 json
+
 {
   "error": "Bad Request",
+  
   "message": "CPF/CNPJ já cadastrado"
+  
 }
 
 
@@ -178,8 +189,11 @@ json
 
 json
 {
+
   "error": "Not Found",
+  
   "message": "CEP inválido"
+  
 }
 
 
@@ -190,22 +204,34 @@ json
 ### Response 201 Created SUCESSO
 
 json
+
 {
+
   "idConta": "9a66386f-1d73-4fa9-9e07-902c67a6c1d2",
+  
   "tipoConta": "PF",
+  
   "status": "TEMPORARIO",
+  
   "saldo": 0.0,
+  
   "dataCriacao": "2025-10-28T23:10:21.123Z",
+  
   "clienteId": "b4c0d95e-5cb2-489a-8857-13ae5cb2b65c"
+  
 }
 
 
 ### Response ERRO / 404 CLIENTE NÃO ENCONTRADO
 
 json
+
 {
+
   "error": "Not Found",
+  
   "message": "Cliente não encontrado"
+  
 }
 
 
@@ -213,17 +239,24 @@ json
 
 json
 {
+
   "error": "Bad Request",
+  
   "message": "Cliente já possui conta temporária"
+  
 }
 
 
 ### Response ERRO / 400 TIPO DE CONTA INVÁLIDO
 
 json
+
 {
+
   "error": "Bad Request",
+  
   "message": "Tipo de conta inválido. Use PF ou PJ"
+  
 }
 
 
@@ -234,23 +267,36 @@ json
 ### Response 200 OK SUCESSO
 
 json
+
 {
+
   "idConta": "9a66386f-1d73-4fa9-9e07-902c67a6c1d2",
+  
   "tipoConta": "PF",
+  
   "status": "TEMPORARIO",
+  
   "saldo": 0.0,
+  
   "dataCriacao": "2025-10-28T23:10:21.123Z",
+  
   "dataAtualizacao": null,
+  
   "clienteId": "b4c0d95e-5cb2-489a-8857-13ae5cb2b65c"
+  
 }
 
 
 ### Response ERRO / 404 CONTA NÃO ENCONTRADA
 
 json
+
 {
+
   "error": "Not Found",
+  
   "message": "Conta não encontrada"
+  
 }
 
 
@@ -261,23 +307,36 @@ json
 ### Response 200 OK SUCESSO
 
 json
+
 {
+
   "idConta": "9a66386f-1d73-4fa9-9e07-902c67a6c1d2",
+  
   "tipoConta": "PF",
+  
   "status": "APROVADA",
+  
   "saldo": 0.0,
+  
   "dataCriacao": "2025-10-28T23:10:21.123Z",
+  
   "dataAtualizacao": "2025-10-28T23:20:05.987Z",
+  
   "clienteId": "b4c0d95e-5cb2-489a-8857-13ae5cb2b65c"
+  
 }
 
 
 ### Response ERRO / 400 STATUS INVÁLIDO
 
 json
+
 {
+
   "error": "Bad Request",
+  
   "message": "Status inválido. Use APROVADA, REPROVADA ou TEMPORARIO"
+  
 }
 
 
@@ -290,10 +349,16 @@ json
 ### Response ERRO / 404 CONTA NÃO ENCONTRADA
 
 json
+
+
 {
+
   "error": "Not Found",
+  
   "message": "Conta não encontrada"
+  
 }
+
 
 
 ---
@@ -303,8 +368,10 @@ json
 ### Response 200 OK SUCESSO
 
 json
+
 [
   {
+  
     "idConta": "9a66386f-1d73-4fa9-9e07-902c67a6c1d2",
     "tipoConta": "PF",
     "status": "TEMPORARIO",
@@ -312,6 +379,7 @@ json
     "clienteId": "b4c0d95e-5cb2-489a-8857-13ae5cb2b65c"
   },
   {
+  
     "idConta": "c0b255e9-1fd2-470e-bd93-0d62adcef2d1",
     "tipoConta": "PJ",
     "status": "APROVADA",
