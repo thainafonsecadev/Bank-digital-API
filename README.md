@@ -1,6 +1,4 @@
-from pathlib import Path
-
-readme_final = """# Banco Digital API
+Banco Digital API
 
 Este é um projeto de estudo onde desenvolvi uma API REST em Java com Spring Boot simulando um pequeno banco digital.
 
@@ -322,8 +320,3 @@ json
 - Migrar o banco para PostgreSQL / RDS  
 - Criar documentação com Swagger  
 """
-
-path_final = Path("/mnt/data/README-FINAL-BancoDigitalAPI.md")
-path_final.write_text(readme_final, encoding="utf-8")
-
-path_final
