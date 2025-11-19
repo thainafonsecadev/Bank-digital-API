@@ -24,11 +24,6 @@ import java.util.UUID;
         this.viaCepService = viaCepService;
     }
 
-    @GetMapping("/teste")
-    public String teste() {
-        return "Controller funcionando!";
-    }
-
     @PostMapping("/clientes")
     @ResponseStatus(HttpStatus.CREATED)
     public Cliente criarCliente(@RequestBody @Valid ClienteRequest clienteRequest) {

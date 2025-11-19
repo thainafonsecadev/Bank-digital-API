@@ -26,6 +26,7 @@ spring:
 ---
 spring:
   config:
+
     activate:
       on-profile: docker
   datasource:
